@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\Ricardo Cavalcanti\\.platformio\\penv\\Scripts;C:\\Users\\Ricardo Cavalcanti\\.platformio\\penv;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Users\\Ricardo Cavalcanti\\AppData\\Local\\Microsoft\\WindowsApps;E:\\Microsoft VS Code\\bin;C:\\Users\\Ricardo Cavalcanti\\AppData\\Local\\GitHubDesktop\\bin;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Users\\Ricardo Cavalcanti\\AppData\\Local\\Microsoft\\WindowsApps;E:\\Microsoft VS Code\\bin;C:\\Users\\Ricardo Cavalcanti\\AppData\\Local\\GitHubDesktop\\bin",
+        "PLATFORMIO_CALLER": "vscode"
+    }
+}
