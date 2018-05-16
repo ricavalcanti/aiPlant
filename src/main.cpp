@@ -7,10 +7,10 @@
 #define pino_sinal_analogico A0
 #define pino_bomba D2 
 
-const char* SSID = "LII"; // rede wifi
-const char* PASSWORD = "wifiLI2Rn"; // senha da rede wifi
+const char* SSID = "Ric"; // rede wifi
+const char* PASSWORD = "meh123456"; // senha da rede wifi
 
-const char* HOST = "192.168.0.107"; //"192.168.0.107"; // ip/host do broker
+const char* HOST = "192.168.43.247"; //"192.168.0.107"; // ip/host do broker
 int PORT =  3001; // porta do broker
 SocketIOClient socket;
 
