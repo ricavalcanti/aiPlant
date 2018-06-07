@@ -2,16 +2,18 @@
 #include <ESP8266WiFi.h>
 #include <SocketIOClient.h>
 #include <ArduinoJson.h>
+#include <Ticker.h>
 
-#define pino_sinal_analogico A0
-#define pino_bomba D2 
+#define pino_sinal_analogico A0 
 
-const char* SSID = "LII"; // rede wifi
-const char* PASSWORD = "wifiLI2Rn"; // senha da rede wifi
+const char* SSID = "Ric"; // rede wifi
+const char* PASSWORD = "meh123456"; // senha da rede wifi
 
-const char* HOST = "192.168.0.107"; //"192.168.0.107"; // ip/host do broker
+const char* HOST = "192.168.43.247"; //"192.168.0.107"; // ip/host do broker
 int PORT =  3001; // porta do broker
 SocketIOClient socket;
+
+Ticker tSend;
 
 float getSensor(){
     return ((analogRead(pino_sinal_analogico))/1024.0);
@@ -68,18 +70,12 @@ void setup() {
     initWiFi();
     initWS();
     delay(100);
+    tSend.attach(15,sendData);
 }
 
 void loop() {
     if(!socket.connected()){
         initWS();
-        socket.emit("getvalue", "bmd"); //pegar valor do estado da bomba
     }
-    /*if(timeElapsed > timeSend){
-        sendData(); //enviar Json cm serial e valor 
-    }*/
-    sendData();
-    delay(5000); //trocar p interrupção 
-
     socket.monitor();
 }
