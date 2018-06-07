@@ -4,8 +4,7 @@
 #include <ArduinoJson.h>
 #include <Ticker.h>
 
-#define pino_sinal_analogico A0
-#define pino_bomba D2 
+#define pino_bomba D1 
 
 const char* SSID = "Ric"; // rede wifi
 const char* PASSWORD = "meh123456"; // senha da rede wifi
@@ -27,44 +26,11 @@ Ticker tSend;
 
 bool onPump = false; //estado da bomba
 
-float getSensor(){
-    return ((analogRead(pino_sinal_analogico))/1023.0);
-}
-
-void sendData(){
-    
-    //enviar Json    
-    StaticJsonBuffer<200> jsonBuffer;
-    char big_json[200];
-
-    JsonObject& sensorUmd = jsonBuffer.createObject();
-    sensorUmd["serial"] = "umd";
-    sensorUmd["value"] = getSensor(); //vUmd
-
-    /*JsonArray& dadosJson = jsonBuffer.createArray();
-    dadosJson.add(sensorUmd);*/ //para incluir em um vetor
-
-    sensorUmd.printTo(big_json);
-    Serial.println();
-    Serial.print(big_json);
-
-
-    socket.emit("sendsensor", big_json);
-
-}
-
 void activePump(String payload){
     Serial.println("Conteudo: "+ payload);
     onPump = payload.toInt();
     digitalWrite(LED_BUILTIN, !(onPump));
     digitalWrite(pino_bomba, onPump);
-    if(onPump){
-        tSend.attach(3,sendData);
-    }else{
-        tSend.attach(15,sendData);
-    }
-    
-     
 
 }
 
@@ -86,23 +52,7 @@ void initWiFi() {
       return;
     } else if (socket.connected()) {
         Serial.println(F("\n\n connection device-server established \n\n"));
-        delay(10);
-            //enviar Json    
-    StaticJsonBuffer<200> jsonBuffer;
-    char big_json[200];
-
-    JsonObject& sensorUmd = jsonBuffer.createObject();
-    sensorUmd["serial"] = "bmd";
-    //sensorUmd["value"] = getSensor(); //vUmd
-
-    /*JsonArray& dadosJson = jsonBuffer.createArray();
-    dadosJson.add(sensorUmd);*/ //para incluir em um vetor
-
-    sensorUmd.printTo(big_json);
-    Serial.println();
-    Serial.print(big_json);
-
-        socket.emit("getvalue", big_json);
+        delay(10);   
       }
     }
 
@@ -112,7 +62,6 @@ void initWiFi() {
 void setup() {
     Serial.begin(115200);
     Serial.flush();
-    pinMode(pino_sinal_analogico, INPUT);
     pinMode(pino_bomba, OUTPUT);
     pinMode(LED_BUILTIN, OUTPUT);
 
@@ -122,9 +71,6 @@ void setup() {
     initWiFi();
     initWS();
     delay(100);
-    //tSend.attach(300,sendData);
-    
-    
 }
 
 void loop() {
